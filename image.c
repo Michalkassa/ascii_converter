@@ -6,6 +6,7 @@
 
 
 Image* load_image(const char *filename){
+    
     Image* img = malloc(sizeof(Image));
     if (img == NULL){
         fprintf(stderr, "Failed to Load image : %s", stbi_failure_reason());

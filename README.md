@@ -16,14 +16,15 @@ Run the following to compile:
 
 ```sh
 make
+make clean
 ```
 
 ## Usage
 ```sh
-./main [filename] [terminal_width]
+./ascii-converter [filename] [terminal_width]
 ```
 
 ## Example
 ```sh
-./main image.png 80
+./ascii-converter image.png 80
 ```

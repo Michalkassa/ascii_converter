@@ -20,6 +20,6 @@ converter.o: converter.c converter.h image.h
 	$(CC) $(CFLAGS) -c converter.c
 
 clean:
-	rm -f $(OBJS) $(TARGET)
+	rm -f $(OBJS)
 
 .PHONY: all clean
