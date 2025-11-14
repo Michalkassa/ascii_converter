@@ -11,6 +11,7 @@ char pixel_to_ascii(unsigned char red, unsigned char green, unsigned char blue){
     float brightness = (0.2126*red + 0.7152*green + 0.0722*blue ) / 255.0f; //normalised
     
     int index = (int)(brightness * (strlen(ASCII_CHARS) - 1));
+    
 
     return ASCII_CHARS[index];
 
@@ -49,9 +50,9 @@ void convert_to_ascii(Image *img, int target_width){
             unsigned char g = img->data[index + 1];
             unsigned char b = img->data[index + 2];
 
+
             putchar(pixel_to_ascii(r, g, b));
         }
-
         putchar('\n');
     }
 }
