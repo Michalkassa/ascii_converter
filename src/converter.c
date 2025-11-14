@@ -12,9 +12,7 @@ char pixel_to_ascii(unsigned char red, unsigned char green, unsigned char blue){
     
     int index = (int)(brightness * (strlen(ASCII_CHARS) - 1));
     
-
     return ASCII_CHARS[index];
-
 }
 
 

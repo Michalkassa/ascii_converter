@@ -21,10 +21,10 @@ make clean
 
 ## Usage
 ```sh
-./ascii-converter [filename] [terminal_width]
+./ascii-converter [file_directory] [terminal_width]
 ```
 
 ## Example
 ```sh
-./ascii-converter image.png 80
+./ascii-converter images/image.png 80
 ```

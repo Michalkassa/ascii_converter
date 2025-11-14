@@ -1,25 +1,24 @@
-CC = gcc
-CFLAGS = -Wall -Wextra -O2
-LDFLAGS = -lm
+WARNING = -Wall -Wshadow
+ERROR = -Wvla -Werror
+GCC = gcc -std=c11 -g $(WARNING) $(ERROR) -O3
+
+SRCS = src/image.c src/main.c src/converter.c
 
 TARGET = ascii-converter
-OBJS = main.o image.o converter.o
 
 all: $(TARGET)
 
-$(TARGET): $(OBJS)
-	$(CC) $(OBJS) -o $(TARGET) $(LDFLAGS)
+$(TARGET): $(SRCS)
+	$(GCC) $(SRCS) -o $(TARGET) $(LDFLAGS)
 
 main.o: main.c image.h converter.h
-	$(CC) $(CFLAGS) -c main.c
+	$(GCC) -c main.c
 
 image.o: image.c image.h
-	$(CC) $(CFLAGS) -c image.c
+	$(GCC) -c image.c
 
 converter.o: converter.c converter.h image.h
-	$(CC) $(CFLAGS) -c converter.c
+	$(GCC) -c converter.c
 
 clean:
-	rm -f $(OBJS)
-
-.PHONY: all clean
+	rm -f $(SRCS)
