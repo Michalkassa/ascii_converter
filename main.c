@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <stdlib.h>
 #include "image.h"
 #include "converter.h"
 
@@ -6,14 +7,15 @@
 
 int main(int argc, char** argv){
     char *filename = NULL;
-    int target_width = 100;
+    int target_width = 80;
 
-    if( argc != 2 ){
-        printf("Please run : main [filename] \n");
+    if( argc != 3 ){
+        printf("Please run : main [filename] [terminal_width]\n");
         return 1;
     }
-
     filename = argv[1];
+    target_width = atoi(argv[2]);
+
     printf("Loading image: %s\n", filename);
     Image *img = load_image(filename);
 

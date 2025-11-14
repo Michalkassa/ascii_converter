@@ -18,30 +18,40 @@ char pixel_to_ascii(unsigned char red, unsigned char green, unsigned char blue){
 
 
 void convert_to_ascii(Image *img, int target_width){
-    if(target_width == 0){
+
+    if (target_width <= 0 || target_width > img->width)
         target_width = img->width;
-    }
-    float scale_x = (float)img->width / target_width;
-    int target_height = (int)((float)img->height / scale_x / 2.0f);
-    float scale_y = (float)img->height / target_height;
 
-    for(int x = 0 ; x < target_width; x++){
-        for(int y = 0; y< target_height; y++){
-            int img_x = (int)(x * scale_x);
-            int img_y = (int)(y * scale_y);
+    float scale = (float)img->width / (float)target_width;
 
-            if (img_x >= img->width) img_x = img->width - 1;
-            if (img_y >= img->height) img_y = img->height - 1;
+    // Height adjusted for terminal character aspect ratio (~2:1)
+    int target_height = (int)((float)img->height / scale / 2.0f);
 
-            int index = (img_x * img->width + img_y) * img->channels;
+    for (int y = 0; y < target_height; y++) {
+
+        float img_y = y * scale * 2.0f;
+
+        for (int x = 0; x < target_width; x++) {
+
+            float img_x = x * scale;
+
+            int ix = (int)img_x;
+            int iy = (int)img_y;
+
+            if (ix < 0) ix = 0;
+            if (iy < 0) iy = 0;
+            if (ix >= img->width)  ix = img->width - 1;
+            if (iy >= img->height) iy = img->height - 1;
+
+            int index = (iy * img->width + ix) * img->channels;
+
             unsigned char r = img->data[index + 0];
             unsigned char g = img->data[index + 1];
             unsigned char b = img->data[index + 2];
-            
-            // Convert to ASCII and print
-            char ascii_char = pixel_to_ascii(r, g, b);
-            putchar(ascii_char);
+
+            putchar(pixel_to_ascii(r, g, b));
         }
+
         putchar('\n');
     }
 }
