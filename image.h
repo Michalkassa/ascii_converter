@@ -1,7 +1,7 @@
 #ifndef IMAGE_H
 #define IMAGE_H
 typedef struct{
-    char* data;
+    unsigned char* data;
     int width;
     int height;
     int channels;
