@@ -3,8 +3,9 @@ ERROR = -Wvla -Werror
 GCC = gcc -std=c11 -g $(WARNING) $(ERROR) -O3
 
 SRCS = src/image.c src/main.c src/converter.c
+OBJS = src/image.o src/main.o src/converter.o
 
-TARGET = ascii-converter
+TARGET = ascii_converter
 
 all: $(TARGET)
 
@@ -21,4 +22,4 @@ converter.o: converter.c converter.h image.h
 	$(GCC) -c converter.c
 
 clean:
-	rm -f $(SRCS)
+	rm -f $(OBJS)

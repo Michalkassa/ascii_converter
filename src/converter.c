@@ -48,8 +48,8 @@ void convert_to_ascii(Image *img, int target_width){
             unsigned char g = img->data[index + 1];
             unsigned char b = img->data[index + 2];
 
-
-            putchar(pixel_to_ascii(r, g, b));
+            char c = pixel_to_ascii(r, g, b);
+            putchar(c);
         }
         putchar('\n');
     }
