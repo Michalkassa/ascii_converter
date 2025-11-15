@@ -22,6 +22,7 @@ int main(int argc, char** argv){
     Image *img = load_image(input_file_path);
 
     if (!img) {
+        free_image(img);
         fprintf(stderr, "Error: Failed to load image '%s'\n", input_file_path);
         return 1;
     }
@@ -35,6 +36,7 @@ int main(int argc, char** argv){
     int file_display = convert_to_ascii_file(img, output_file_name ,target_width);
 
     if(file_display){
+        free_image(img);
         fprintf(stderr, "Error: Failed to display to file. \n");
         return 1;
     }

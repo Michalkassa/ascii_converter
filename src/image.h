@@ -8,6 +8,7 @@ typedef struct{
 }Image;
 
 Image* load_image(const char* file_name);
+
 void free_image(Image* img);
 
 #endif
