@@ -5,6 +5,8 @@
 
 char pixel_to_ascii(unsigned char red, unsigned char green, unsigned char blue);
 
-void convert_to_ascii(Image *img, int target_width);
+int convert_to_ascii(Image *img, int target_width);
+
+int convert_to_ascii_file(Image *img, char* file_name, int target_width);
 
 #endif

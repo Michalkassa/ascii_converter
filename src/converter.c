@@ -15,8 +15,54 @@ char pixel_to_ascii(unsigned char red, unsigned char green, unsigned char blue){
     return ASCII_CHARS[index];
 }
 
+int convert_to_ascii_file(Image *img, char* file_name, int target_width){
 
-void convert_to_ascii(Image *img, int target_width){
+    FILE *file = fopen(file_name, "w");
+	
+	if (file == NULL)
+		return 1;
+
+    if (target_width <= 0 || target_width > img->width)
+        target_width = img->width;
+
+    float scale = (float)img->width / (float)target_width;
+
+    // Height adjusted for terminal character aspect ratio (~2:1)
+    int target_height = (int)((float)img->height / scale / 2.0f);
+
+    for (int y = 0; y < target_height; y++) {
+
+        float img_y = y * scale * 2.0f;
+
+        for (int x = 0; x < target_width; x++) {
+
+            float img_x = x * scale;
+
+            int ix = (int)img_x;
+            int iy = (int)img_y;
+
+            if (ix < 0) ix = 0;
+            if (iy < 0) iy = 0;
+            if (ix >= img->width)  ix = img->width - 1;
+            if (iy >= img->height) iy = img->height - 1;
+
+            int index = (iy * img->width + ix) * img->channels;
+
+            unsigned char r = img->data[index + 0];
+            unsigned char g = img->data[index + 1];
+            unsigned char b = img->data[index + 2];
+
+            char c = pixel_to_ascii(r, g, b);
+            fputc(c,file);
+        }
+        fputc('\n',file);
+    }
+    fclose(file);
+    return 0;
+}
+
+
+int convert_to_ascii(Image *img, int target_width){
 
     if (target_width <= 0 || target_width > img->width)
         target_width = img->width;
@@ -53,4 +99,5 @@ void convert_to_ascii(Image *img, int target_width){
         }
         putchar('\n');
     }
+    return 0;
 }
