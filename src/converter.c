@@ -4,6 +4,7 @@
 #include <string.h>
 
 #include "image.h"
+#include "output.h"
 
 static const char ASCII_CHARS[] = " .'`^\",:;Il!i><~+_-?][}{1)(|\\/tfjrxnuvczXYUJCLQ0OZmwqpdbkhao*#MW&8%B@$";
 
@@ -53,9 +54,11 @@ int convert_to_ascii_file(Image *img, char* file_name, int target_width){
             unsigned char b = img->data[index + 2];
 
             char c = pixel_to_ascii(r, g, b);
-            fputc(c,file);
+            stdout_print(r,g,b,c);
+            file_print(file,c);
         }
-        fputc('\n',file);
+        file_print(file,'\n');
+        stdout_print(0,0,0,'\n');
     }
     fclose(file);
     return 0;

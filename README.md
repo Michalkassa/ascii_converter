@@ -26,5 +26,5 @@ make clean
 
 ## Example
 ```sh
-./ascii-converter images/image.png image.txt 80
+./ascii_converter images/image.png image.txt 80
 ```
