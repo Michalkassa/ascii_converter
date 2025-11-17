@@ -33,9 +33,10 @@ int main(int argc, char** argv){
     //     fprintf(stderr, "Error: Failed to display to Terminal (STDOUT) \n");
     //     return 1;
     // }
-    int file_display = convert_to_ascii_file(img, output_file_name ,target_width);
+    int txt_file_display = convert_to_ascii(img, output_file_name ,target_width);
+    int png_file_display = convert_to_png(img, "output.png", target_width);
 
-    if(file_display){
+    if(txt_file_display || png_file_display){
         free_image(img);
         fprintf(stderr, "Error: Failed to display to file. \n");
         return 1;

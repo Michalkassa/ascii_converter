@@ -1,4 +1,6 @@
+
 #include <stdio.h>
+#include "image.h"
 
 void stdout_print(unsigned char red, unsigned char green, unsigned char blue, unsigned char character){
     printf("\x1b[38;2;%d;%d;%dm%c", red, green, blue, character);

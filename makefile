@@ -21,7 +21,7 @@ image.o: image.c image.h
 converter.o: converter.c converter.h image.h
 	$(GCC) -c converter.c
 
-output.o: output.c output.h
+output.o: output.c output.h image.h
 	$(GCC) -c output.c
 
 clean:
