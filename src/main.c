@@ -26,7 +26,7 @@ int main(int argc, char** argv){
         fprintf(stderr, "Error: Failed to load image '%s'\n", input_file_path);
         return 1;
     }
-    
+
     printf("Converting to ASCII (width: %d characters)...\n\n", target_width);
     // int terminal_display = convert_to_ascii(img, target_width);
     // if(terminal_display){
