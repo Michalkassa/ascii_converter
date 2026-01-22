@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include "image.h"
 #include "converter.h"
-
+#include "microui.h"
 
 
 int main(int argc, char** argv){

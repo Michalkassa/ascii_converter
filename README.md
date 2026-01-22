@@ -28,3 +28,9 @@ make clean
 ```sh
 ./ascii_converter images/image.png image.txt 80
 ```
+
+
+# NEW : to implement ui I decided to use microui for its lightweight feel and structure
+
+https://github.com/rxi/microui
+
