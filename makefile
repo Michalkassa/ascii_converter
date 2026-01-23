@@ -1,32 +1,42 @@
+# Compiler & flags
+GCC = gcc
 WARNING = -Wall -Wshadow
-#ERROR = -Wvla -Werror
-#$(WARNING) $(ERROR)
-GCC = gcc -std=c11 -g WARNING -O3
+CFLAGS = -std=c11 -g -O3 $(WARNING) -arch arm64 -Iinclude
 
-SRCS = src/image.c src/main.c src/converter.c src/output.c src/microui.c
-OBJS = src/image.o src/main.o src/converter.o src/output.o src/microui.o
+# Sources & objects
+SRCS = src/image.c src/main.c src/converter.c src/output.c
+OBJS = image.o main.o converter.o output.o
 
+# Target executable
 TARGET = ascii_converter
 
+# Link dynamic raylib (assumes libraylib.dylib is installed in /usr/local/lib or via Homebrew)
+LDFLAGS = /opt/homebrew/Cellar/raylib/5.5/lib/libraylib.dylib \
+          -framework CoreVideo -framework IOKit -framework Cocoa \
+          -framework OpenGL -framework GLUT
+
+
+# Default target
 all: $(TARGET)
 
-$(TARGET): $(SRCS)
-	$(GCC) $(SRCS) -o $(TARGET) $(LDFLAGS)
+# Link the executable
+$(TARGET): $(OBJS)
+	$(GCC) $(OBJS) $(LDFLAGS) -o $(TARGET)
 
-main.o: main.c image.h converter.h
-	$(GCC) -c main.c
+# Compile object files
+main.o: src/main.c
+	$(GCC) $(CFLAGS) -c src/main.c -o main.o
 
-image.o: image.c image.h
-	$(GCC) -c image.c
+image.o: src/image.c
+	$(GCC) $(CFLAGS) -c src/image.c -o image.o
 
-converter.o: converter.c converter.h image.h
-	$(GCC) -c converter.c
+converter.o: src/converter.c
+	$(GCC) $(CFLAGS) -c src/converter.c -o converter.o
 
-output.o: output.c output.h image.h
-	$(GCC) -c output.c
+output.o: src/output.c
+	$(GCC) $(CFLAGS) -c src/output.c -o output.o
 
-microui.o: ./src/microui.c ./src/microui.h
-	$(GCC) -c ./src/microui.c
-
+# Clean object files and binary
 clean:
-	rm -f $(OBJS)
+	rm -f $(OBJS) $(TARGET)
+

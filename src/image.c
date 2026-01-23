@@ -1,40 +1,20 @@
-#define STB_IMAGE_IMPLEMENTATION
+#include "../include/image.h"
 #include <stdio.h>
-#include <stdlib.h>
-#include "stb_image.h"
-#include "image.h"
+#include "raylib.h"
 
-
-Image* load_image(const char *filename){
-    
-    Image* img = malloc(sizeof(Image));
-    if (img == NULL){
-        fprintf(stderr, "Failed to Load image : %s", stbi_failure_reason());
-        return NULL;
+Image load_image(const char *filename) {
+    Image img = LoadImage(filename);  
+    if (img.data == NULL) {
+        fprintf(stderr, "Failed to load image: %s\n", filename);
+    } else {
+        printf("Loaded image: %dx%d, 4 channels (RGBA)\n",
+               img.width, img.height);
     }
-
-    img->data = stbi_load(filename,&img->width, &img->height,&img->channels,4);
-
-    if (!img->data) {
-        fprintf(stderr, "Failed to load image: %s\n", stbi_failure_reason());
-        free(img); 
-        return NULL;
-    }
-
-    img->channels = 4;
-
-    printf("Loaded image: %dx%d, %d channels\n", 
-           img->width, img->height, img->channels);
-    
+    ImageFormat(&img, PIXELFORMAT_UNCOMPRESSED_R8G8B8);
     return img;
-
 }
 
-void free_image(Image* img){
-    if(img){
-        if(img->data){
-            stbi_image_free(img->data);
-        }
-        free(img);
-    }
+
+void free_image(Image img) {
+    UnloadImage(img);  
 }
